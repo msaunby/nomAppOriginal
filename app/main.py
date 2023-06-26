@@ -6,6 +6,7 @@ Created on Tues June 23 10:40:49 2020
 @author: sean
 """
 
+
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
@@ -36,8 +37,8 @@ def display_page(pathname):
         return page2.layout
     elif pathname == '/apps/page3':
         return page3.layout
-    elif pathname == '/apps/page4':
-        return page4.layout
+    # elif pathname == '/apps/page4':
+    #     return page4.layout
     elif pathname == '/apps/page5':
         return page5.layout
     else:

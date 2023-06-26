@@ -3,6 +3,16 @@
 The ```Dockerfile``` here should enable simple building and deployment on a range of cloud hosting
 services. It can also be used for automated (DevOps) build and deployment, for example with GitHub Actions.
 
+### Terminology
+
+Dockerfile - The instructions for building a Docker image. Typically starting with a FROM directive specifying a base Docker image to be modified in some way.
+
+Docker image - Packaged software and configuration files that can be run by the Docker runtime.
+
+Docker container - A deployed Docker image.
+
+## Docker image
+
 The base Docker image includes Meinheld and Gunicorn with automatic configuation.  By providing an appropriately named application, i.e. ```main.py``` in directory ```app```, with a (flask) server named ```app```, everything should just work.  See <https://github.com/tiangolo/meinheld-gunicorn-flask-docker> for more information on this Docker image and recommendations for alternatives.
 
 
@@ -48,11 +58,14 @@ Keep costs down by specifying 0 as the minimum number of instances.  I typically
 
 ## Deploy to AWS Lightsail
 
+### Prepare a Comtainer Service using the AWS console.
+
 ```
-%aws aws lightsail push-container-image --region eu-west-2 --service-name container-demo --image msaunby/nom:latest --label nom 
+% docker build -t nom-docker .
+% aws lightsail push-container-image --region eu-west-2 --service-name container-demo --image nom-docker:latest --label nom 
 ```
 
 This will add the image to the available images at <https://lightsail.aws.amazon.com/ls/webapp/eu-west-2/container-services/container-demo/images>
 
-To complete deployment go to <https://lightsail.aws.amazon.com/ls/webapp/eu-west-2/container-services/container-demo/deployments>  Note that the port used by this container is 8050.
+To complete deployment go to <https://lightsail.aws.amazon.com/ls/webapp/eu-west-2/container-services/container-demo/deployments>  Note that the port used by this container is 80.
 
